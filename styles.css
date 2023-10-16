@@ -1,79 +1,162 @@
-.toast {
-  box-sizing: border-box;
-  padding: .75rem;
-  background-color: white;
-  border: 1px solid #333;
-  border-radius: .25em;
-  position: relative;
-  cursor: pointer;
-  transition: transform 300ms ease-in-out;
-  overflow: hidden;
-}
-
-.toast-container[data-position$="-right"] .toast {
-  transform: translateX(110%);
-}
-
-.toast-container[data-position$="-left"] .toast {
-  transform: translateX(-110%);
-}
-
-.toast-container[data-position="top-center"] .toast {
-  transform: translateY(-100vh);
-}
-
-.toast-container[data-position="bottom-center"] .toast {
-  transform: translateY(100vh);
-}
-
-.toast-container .toast.show {
-  transform: translate(0, 0);
-}
-
-.toast.progress::before {
-  content: "";
-  position: absolute;
-  height: 2px;
-  width: calc(100% * var(--progress));
-  background-color: blue;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.toast.can-close::after {
-  content: "\00D7";
-  position: absolute;
-  top: 2px;
-  right: 5px;
-}
-
 .toast-container {
-  position: fixed;
-  margin: 10px;
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
+    position: fixed;
+    width: 320px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    z-index: 1000;
+
 }
 
 .toast-container[data-position^="top-"] {
-  top: 0;
+    top: 0;
 }
 
 .toast-container[data-position^="bottom-"] {
-  bottom: 0;
+    bottom: 0;
 }
 
 .toast-container[data-position$="-right"] {
-  right: 0;
+    right: 0;
 }
 
 .toast-container[data-position$="-left"] {
-  left: 0;
+    left: 0;
 }
 
 .toast-container[data-position$="-center"] {
-  left: 50%;
-  transform: translateX(-50%);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.toast {
+    box-sizing: border-box;
+    padding: 12px;
+    padding-right: 64px;
+    padding-left: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 64px;
+    max-height: 800px;
+    background-color: #fff;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border: 1px soild #e8e8e8;
+    border-radius: 6px;
+    box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 300ms ease-in-out;
+}
+
+.toast-container[data-position$="-right"] .toast {
+    transform: translateX(110%);
+}
+
+.toast-container[data-position$="-left"] .toast {
+    transform: translateX(-110%);
+}
+
+.toast-container[data-position="top-center"] .toast {
+    transform: translateY(-100vh);
+}
+
+.toast-container[data-position="bottom-center"] .toast {
+    transform: translateY(100vh);
+}
+
+.toast-container .toast.show {
+    transform: translate(0, 0);
+}
+
+.toast.progress::before {
+    content: "";
+    position: absolute;
+    height: 3px;
+    background-color: #0089ff;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: calc(100% * var(--progress));
+}
+
+.toast .toast-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    display: none;
+}
+
+.toast.has-icon .toast-icon {
+    display: block;
+}
+
+.toast[data-type="info"]::before,
+.toast.has-icon[data-type="info"] .toast-icon {
+    background-color: #0089ff;
+}
+
+.toast[data-type="success"]::before,
+.toast.has-icon[data-type="success"] .toast-icon {
+    background-color: #52c41a;
+}
+
+.toast[data-type="warning"]::before,
+.toast.has-icon[data-type="warning"] .toast-icon {
+    background-color: #faad14;
+}
+
+.toast[data-type="error"]::before,
+.toast.has-icon[data-type="error"] .toast-icon {
+    background-color: #ff4d4f;
+}
+
+.toast.has-icon .toast-icon::after {
+    content: "";
+    width: 80%;
+    height: 80%;
+    display: block;
+    border-radius: 100%;
+    margin: auto;
+    margin-top: 2px;
+}
+
+.toast.has-icon[data-type="info"] .toast-icon::after {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9Imx1Y2lkZSBsdWNpZGUtaW5mbyI+CjxwYXRoIGQ9Ik0xMiAxNnYtNCIvPgo8cGF0aCBkPSJNMTIgOGguMDEiLz4KPC9zdmc+");
+}
+
+.toast.has-icon[data-type="success"] .toast-icon::after {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZT0iI2ZmZiIgY2xhc3M9InctNiBoLTYiPgogIDxwYXRoIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZD0iTTQuNSAxMi43NWw2IDYgOS0xMy41IiAvPgo8L3N2Zz4K");
+}
+
+.toast.has-icon[data-type="warning"] .toast-icon::after {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9Imx1Y2lkZSBsdWNpZGUtYWxlcnQtY2lyY2xlIj4KPGxpbmUgeDE9IjEyIiB4Mj0iMTIiIHkxPSI4IiB5Mj0iMTIiLz4KPGxpbmUgeDE9IjEyIiB4Mj0iMTIuMDEiIHkxPSIxNiIgeTI9IjE2Ii8+Cjwvc3ZnPg==");
+}
+
+.toast.has-icon[data-type="error"] .toast-icon::after {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZT0iI2ZmZiIgY2xhc3M9InctNiBoLTYiPgogIDxwYXRoIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZD0iTTYgMThMMTggNk02IDZsMTIgMTIiIC8+Cjwvc3ZnPgo=");
+}
+
+.toast.can-close::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    opacity: .7;
+    right: 5px;
+    font-size: 25px;
+    width: 16px;
+    height: 16px;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBjbGFzcz0idy00IGgtNCI+CiAgPHBhdGggc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBkPSJNNiAxOEwxOCA2TTYgNmwxMiAxMiIgLz4KPC9zdmc+Cg==");
+}
+
+.toast.can-close:hover::after {
+    opacity: 1;
+}
+
+@media screen and (min-width:725px) {
+    .toast-container {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }
